@@ -17,22 +17,22 @@ public class Main extends Application {
 	// Calls the ButtonHandler.java class and initializes all the math function buttons
 	ButtonHandler buttonHandler = new ButtonHandler();
 	
-	Button sinBtn = buttonHandler.create60pxButton("sin");
-	Button cosBtn = buttonHandler.create60pxButton("cos");
-	Button tanBtn = buttonHandler.create60pxButton("tan");
-	Button addBtn = buttonHandler.create60pxButton("+");
-	Button divideBtn = buttonHandler.create60pxButton("/");
-	Button exponentBtn = buttonHandler.create60pxButton("^");
-	Button eBtn = buttonHandler.create60pxButton("e");
-	Button lnBtn = buttonHandler.create60pxButton("ln");
-	Button subtractBtn = buttonHandler.create60pxButton("-");
-	Button sqrtBtn = buttonHandler.create60pxButton("\u221A");		// \u221A is the Unicode escape for the square root symbol in UTF-16 encoding
-	Button inverseSinBtn = buttonHandler.create60pxButton("sin^-1");
-	Button inverseCosBtn = buttonHandler.create60pxButton("cos^-1");
-	Button inverseTanBtn = buttonHandler.create60pxButton("tan^-1");
-	Button multiplyBtn = buttonHandler.create60pxButton("*");
-	Button piBtn = buttonHandler.create60pxButton("\u03C0");		// \u03C0 is the Unicode escape for the pi symbol in UTF-16 encoding
-	Button calculateBtn = buttonHandler.createCalculateButton();
+	Button sinBtn = buttonHandler.createButton("sin", 60, 25);
+	Button cosBtn = buttonHandler.createButton("cos", 60, 25);
+	Button tanBtn = buttonHandler.createButton("tan", 60, 25);
+	Button addBtn = buttonHandler.createButton("+", 60, 25);
+	Button divideBtn = buttonHandler.createButton("/", 60, 25);
+	Button exponentBtn = buttonHandler.createButton("^", 60, 25);
+	Button eBtn = buttonHandler.createButton("e", 60, 25);
+	Button lnBtn = buttonHandler.createButton("ln", 60, 25);
+	Button subtractBtn = buttonHandler.createButton("-", 60, 25);
+	Button sqrtBtn = buttonHandler.createButton("\u221A", 60, 25);		// \u221A is the Unicode escape for the square root symbol in UTF-16 encoding
+	Button inverseSinBtn = buttonHandler.createButton("sin^-1", 60, 25);
+	Button inverseCosBtn = buttonHandler.createButton("cos^-1", 60, 25);
+	Button inverseTanBtn = buttonHandler.createButton("tan^-1", 60, 25);
+	Button multiplyBtn = buttonHandler.createButton("*", 60, 25);
+	Button piBtn = buttonHandler.createButton("\u03C0", 60, 25);		// \u03C0 is the Unicode escape for the pi symbol in UTF-16 encoding
+	Button calculateBtn = buttonHandler.createButton("Calculate", 110, 50);
 	
 	// Creates the input function text field
 	TextField inputFunction = functionTextField();
@@ -118,7 +118,7 @@ public class Main extends Application {
 		// Creates a vertical box with 15px of spacing between each added item
 		VBox vbox = new VBox(15);
 		
-		Label calculationOutcome = new Label("   Invalid Function");
+		Label calculationOutcome = new Label("Temp placeholder");
 		calculationOutcome.setPrefWidth(120);
 		calculationOutcome.setPrefHeight(50);
 		
