@@ -1,4 +1,4 @@
-package derivativefunction;
+package DerivativeFunction;
 
 public interface DerivativeFunction {
 	public abstract int displace();

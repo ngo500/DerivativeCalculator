@@ -1,4 +1,4 @@
-package derivativefunction;
+package DerivativeFunction;
 
 public class InvSinFunction implements DerivativeFunction {
 
