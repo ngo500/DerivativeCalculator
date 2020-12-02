@@ -13,13 +13,13 @@ public class Calculate {
 			new char[]{'a', 'c', 'e', 'i', 'l', 'n', 'o', 'p', 'q', 'r', 's', 't', 'x', '+', '-', '*', '/', '^', '(', ')', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 	private static Stack<Character> parenthesesStack;
 	
-	private static FunctionHandler fh;
+	private static RuleHandler rh;
 	
 	public Calculate() {
 		queue = new LinkedList<String>();
 		derivedQueue = new LinkedList<String>();
 		parenthesesStack = new Stack<Character>();
-		fh = new FunctionHandler();
+		rh = new RuleHandler();
 	}
 	
 	public String calculate(String input) {
@@ -86,7 +86,7 @@ public class Calculate {
 	public void deriveTerms() {
 		while(!queue.isEmpty()) {
 			String term = queue.remove();
-			String newTerm = fh.derive(term);
+			String newTerm = rh.derive(term);
 			derivedQueue.add(newTerm);
 		}
 	}
