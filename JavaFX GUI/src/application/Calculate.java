@@ -22,10 +22,12 @@ public class Calculate {
 		rh = new RuleHandler();
 	}
 	
+	//method to call from outside
 	public String calculate(String input) {
 		queue.clear();
 		derivedQueue.clear();
 		String output = "";
+		// try and catch block for returning errors
 		try {
 			addToQueue(input);
 			deriveTerms();
@@ -37,12 +39,16 @@ public class Calculate {
 		return output;
 	}
 	
-	public void addToQueue(String input) throws Exception {
+	// adds all terms in the input to a queue
+	// examples include "tan(x)", "3x^2", "+", "-", 24
+	private void addToQueue(String input) throws Exception {
 		if(input.length() == 0)
 			throw new Exception("Bad input: Empty input");
+		// remove spaces from function to ease adding terms
 		input = input.replaceAll(" ", "");
-		boolean addedOperand = false;
+		boolean addedOperator = false;
 		int start = 0;
+		// iterate through function to create terms
 		for(int i = 0; i < input.length(); i++) {
 			if(!isAcceptable(input.charAt(i)))
 				throw new Exception("Bad input: contains an unacceptable character");
@@ -56,26 +62,29 @@ public class Calculate {
                 else
                 	throw new Exception("Bad input: Doesn't have an ending parentheses");
             }
+			// use operands to split terms if the operand is outside parentheses
 			if(input.charAt(i) == '+' || input.charAt(i) == '-' || input.charAt(i) == '*' || input.charAt(i) == '/') {
 				if(parenthesesStack.empty()) {
 					queue.add(input.substring(start, i));
 					start = i;
 					queue.add(input.substring(start, i+1));
 					start++;
-					addedOperand = true;
+					addedOperator = true;
 				}
 				else
-					addedOperand = false;
+					addedOperator = false;
 			}
 			else
-				addedOperand = false;
+				addedOperator = false;
 		}
 		queue.add(input.substring(start, input.length()));
-		if(!parenthesesStack.empty() || addedOperand)
+		// check to see if equation has extra parentheses or operator
+		if(!parenthesesStack.empty() || addedOperator)
 			throw new Exception("Bad input: Doesn't have an ending parentheses or has multiple operators");
 	}
 	
-	public boolean isAcceptable(char character) {
+	// determines if the character in the input is acceptable
+	private boolean isAcceptable(char character) {
 		for(int i = 0; i < acceptableCharacters.length; i++) {
 			if(character == acceptableCharacters[i])
 				return true;
@@ -83,7 +92,8 @@ public class Calculate {
 		return false;
 	}
 	
-	public void deriveTerms() {
+	// use RuleHandler to derive terms in the queue
+	private void deriveTerms() {
 		while(!queue.isEmpty()) {
 			String term = queue.remove();
 			String newTerm = rh.derive(term);
@@ -91,12 +101,14 @@ public class Calculate {
 		}
 	}
 	
-	public String createOutput() {
+	// make the derived function by putting all the terms back together
+	private String createOutput() {
 		String outputString = "";
 		while(!derivedQueue.isEmpty()) {
 			outputString += derivedQueue.poll();
 			outputString += " ";
 		}
+		// fix any possible String errors
 		outputString = outputString.replace("+ -", "-");
 		outputString = outputString.replace("- +", "-");
 		outputString = outputString.replace("+ +", "+");
