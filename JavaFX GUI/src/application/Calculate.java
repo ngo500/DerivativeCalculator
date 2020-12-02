@@ -44,6 +44,8 @@ public class Calculate {
 	private void addToQueue(String input) throws Exception {
 		if(input.length() == 0)
 			throw new Exception("Bad input: Empty input");
+		if(input.length() > 20)
+			throw new Exception("Bad input: Exceeds 20 characters in length");
 		// remove spaces from function to ease adding terms
 		input = input.replaceAll(" ", "");
 		boolean addedOperator = false;
