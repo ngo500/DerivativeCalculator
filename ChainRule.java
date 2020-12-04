@@ -76,19 +76,19 @@ public class ChainRule implements DerivativeRule{
 			result += sf.returnDerivative();
 			
 		}//else if
-		else if(out.equals("sxn")) { //function is sin^-1
+		else if(out.equals("sin^-1")) { //function is sin^-1
 			
 			InvSinFunction sf = new InvSinFunction();
 			result += sf.returnDerivative();
 			
 		}//else if
-		else if(out.equals("cxs")) { //function is cos^-1
+		else if(out.equals("cos^-1")) { //function is cos^-1
 			
 			InvCosFunction sf = new InvCosFunction();
 			result += sf.returnDerivative();
 			
 		}//else if
-		else if(out.equals("txn")) { //function is tan^-1
+		else if(out.equals("tan^-1")) { //function is tan^-1
 			
 			InvTanFunction sf = new InvTanFunction();
 			result += sf.returnDerivative();
