@@ -65,7 +65,7 @@ public class Calculate {
                 	throw new Exception("Bad input: Doesn't have an ending parentheses");
             }
 			// use operands to split terms if the operand is outside parentheses
-			if(input.charAt(i) == '+' || input.charAt(i) == '-' || input.charAt(i) == '*' || input.charAt(i) == '/') {
+			if(input.charAt(i) == '+' || input.charAt(i) == '-') {
 				if(parenthesesStack.empty()) {
 					queue.add(input.substring(start, i));
 					start = i;

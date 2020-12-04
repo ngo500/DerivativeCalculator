@@ -1,4 +1,4 @@
-package DerivativeFunction;
+package derivativefunction;
 
 public class SinFunction implements DerivativeFunction {
 
