@@ -36,6 +36,12 @@ public class Calculate {
 		catch(NumberFormatException e) {
 			throw new Exception("Bad input: Formatting error");
 		}
+		catch(StringIndexOutOfBoundsException e) {
+			throw new Exception("Bad input: Formatting error");
+		}
+		catch(ArithmeticException e) {
+			throw new Exception("Bad input: Cannot divide by 0");
+		}
 		catch(Exception e) {
 			throw e;
 		}
@@ -51,6 +57,8 @@ public class Calculate {
 			throw new Exception("Bad input: Exceeds 20 characters");
 		// remove spaces from function to ease adding terms
 		input = input.replaceAll(" ", "");
+		if(input.contains("/0"))
+			throw new ArithmeticException();
 		boolean addedOperator = false;
 		int start = 0;
 		// iterate through function to create terms
@@ -70,7 +78,7 @@ public class Calculate {
                 	throw new Exception("Bad input: Doesn't have an ending parentheses");
             }
 			// use operands to split terms if the operand is outside parentheses
-			if(input.charAt(i) == '+' || input.charAt(i) == '-') {
+			if(input.charAt(i) == '+' || (input.charAt(i) == '-' && input.charAt(i-1) != '^')) {
 				if(parenthesesStack.empty()) {
 					queue.add(input.substring(start, i));
 					start = i;
