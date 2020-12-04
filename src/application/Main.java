@@ -1,5 +1,8 @@
 package application;
 	
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
@@ -36,10 +39,6 @@ public class Main extends Application {
 	
 	// Creates the input function text field
 	TextField inputFunction = functionTextField();
-	
-	
-	Calculate calculate = new Calculate();
-	String output = "";
 	
 	
 	@Override
@@ -126,25 +125,21 @@ public class Main extends Application {
 		calculationOutcome.setPrefWidth(120);
 		calculationOutcome.setPrefHeight(50);
 		
+		// When the "Calculate" button is clicked, write the input function to the "history.txt" file.
+		calculateBtn.setOnAction(t -> 
+		{
+			writeToHistory(inputFunction.getText());
+			calculationOutcome.setText("Derivative calculated");
+		});
 		
-		calculateBtn.setOnAction(t -> test());
-		//calculateBtn.setOnAction(t -> calculationOutcome.setText("Derivative calculated"));
 		
 		vbox.getChildren().addAll(calculateBtn, calculationOutcome);
-		
 		// Sets top padding to line up with the calculate button with the input function text field.
 		vbox.setPadding(new Insets(27, 0, 0, 0));
 		
 		return vbox;
 	}
 	
-	
-	
-	private void test()
-	{
-		output = calculate.calculate(inputFunction.getText());
-		System.out.println(output);
-	}
 	
 	/*
 	 * Creates a vertical box to be used in the top section of the border pane .
@@ -177,10 +172,26 @@ public class Main extends Application {
 	}
 	
 	
+	// Method to write a message argument to the "history.txt" file log
+	private void writeToHistory(String message)
+	{
+		try
+		{
+			FileWriter historyFileWriter = new FileWriter("history.txt", true);
+			historyFileWriter.write(message + "\n");
+			historyFileWriter.close();
+		}
+		
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	
 	
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 }
