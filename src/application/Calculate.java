@@ -30,7 +30,6 @@ public class Calculate {
 		// try and catch block for returning errors
 		try {
 			addToQueue(input);
-			System.out.println(queue);
 			deriveTerms();
 			output = createOutput();
 		}
@@ -57,7 +56,7 @@ public class Calculate {
 		// iterate through function to create terms
 		for(int i = 0; i < input.length(); i++) {
 			if(!isAcceptable(input.charAt(i)))
-				throw new Exception("Bad input: contains a bad character");
+				throw new Exception("Bad input: contains invalid character");
 			if(input.charAt(i) == '(')
 				parenthesesStack.push('(');
 			else if(input.charAt(i) == ')') {
