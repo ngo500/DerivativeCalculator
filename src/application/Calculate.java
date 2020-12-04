@@ -23,18 +23,22 @@ public class Calculate {
 	}
 	
 	//method to call from outside
-	public String calculate(String input) {
+	public String calculate(String input) throws Exception {
 		queue.clear();
 		derivedQueue.clear();
 		String output = "";
 		// try and catch block for returning errors
 		try {
 			addToQueue(input);
+			System.out.println(queue);
 			deriveTerms();
 			output = createOutput();
 		}
+		catch(NumberFormatException e) {
+			throw new Exception("Bad input: Formatting error");
+		}
 		catch(Exception e) {
-			System.out.println(e);
+			throw e;
 		}
 		return output;
 	}
@@ -45,7 +49,7 @@ public class Calculate {
 		if(input.length() == 0)
 			throw new Exception("Bad input: Empty input");
 		if(input.length() > 20)
-			throw new Exception("Bad input: Exceeds 20 characters in length");
+			throw new Exception("Bad input: Exceeds 20 characters");
 		// remove spaces from function to ease adding terms
 		input = input.replaceAll(" ", "");
 		boolean addedOperator = false;
@@ -53,7 +57,7 @@ public class Calculate {
 		// iterate through function to create terms
 		for(int i = 0; i < input.length(); i++) {
 			if(!isAcceptable(input.charAt(i)))
-				throw new Exception("Bad input: contains an unacceptable character");
+				throw new Exception("Bad input: contains a bad character");
 			if(input.charAt(i) == '(')
 				parenthesesStack.push('(');
 			else if(input.charAt(i) == ')') {

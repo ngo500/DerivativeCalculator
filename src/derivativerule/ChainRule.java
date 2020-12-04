@@ -16,7 +16,7 @@ import derivativefunction.InvSinFunction;
 import derivativefunction.InvCosFunction;
 import derivativefunction.InvTanFunction;
 
-public class ChainRule implements DerivativeRule{
+public class ChainRule implements DerivativeRule {
 
 	@Override
 	public String calculateRule(String st) {
@@ -28,7 +28,7 @@ public class ChainRule implements DerivativeRule{
 	 * @param String out is for the outside function, String in is for the inside function
 	 * @return String is the derivative resulting from the chain function
 	 */
-	public String calculateRule(String out, String in) {
+	public String calculateRule(String out, String in) throws NumberFormatException{
 		
 		//string out = fx, string in = gx
 		//result from rule

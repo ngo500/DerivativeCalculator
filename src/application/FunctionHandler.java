@@ -20,6 +20,8 @@ public class FunctionHandler {
 	 * @return result - the result of the derived term
 	 */
 	public String derive(String term) {
+		if(term.equals("+") || term.equals("-"))
+			return term;
 		
 		//result of derivative to return
 		String result = "";
