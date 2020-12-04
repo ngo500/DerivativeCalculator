@@ -38,6 +38,10 @@ public class Main extends Application {
 	TextField inputFunction = functionTextField();
 	
 	
+	Calculate calculate = new Calculate();
+	String output = "";
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -122,7 +126,9 @@ public class Main extends Application {
 		calculationOutcome.setPrefWidth(120);
 		calculationOutcome.setPrefHeight(50);
 		
-		calculateBtn.setOnAction(t -> calculationOutcome.setText("Derivative calculated"));
+		
+		calculateBtn.setOnAction(t -> test());
+		//calculateBtn.setOnAction(t -> calculationOutcome.setText("Derivative calculated"));
 		
 		vbox.getChildren().addAll(calculateBtn, calculationOutcome);
 		
@@ -132,6 +138,13 @@ public class Main extends Application {
 		return vbox;
 	}
 	
+	
+	
+	private void test()
+	{
+		output = calculate.calculate(inputFunction.getText());
+		System.out.println(output);
+	}
 	
 	/*
 	 * Creates a vertical box to be used in the top section of the border pane .
