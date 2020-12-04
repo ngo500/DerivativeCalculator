@@ -9,12 +9,7 @@ package derivativerule;
  *
  */
 
-import derivativefunction.SinFunction;
-import derivativefunction.CosFunction;
-import derivativefunction.TanFunction;
-import derivativefunction.InvSinFunction;
-import derivativefunction.InvCosFunction;
-import derivativefunction.InvTanFunction;
+import application.FunctionHandler;
 
 public class ChainRule implements DerivativeRule {
 
@@ -30,6 +25,8 @@ public class ChainRule implements DerivativeRule {
 	 */
 	public String calculateRule(String out, String in) throws NumberFormatException{
 		
+		FunctionHandler fh = new FunctionHandler();
+
 		//string out = fx, string in = gx
 		//result from rule
 		String result = "";
@@ -57,62 +54,91 @@ public class ChainRule implements DerivativeRule {
 		}//if
 		else {	//otherwise there is only 1 term, just use it as is
 			PowerRule pf = new PowerRule();
+			
 			result = ("(" + pf.calculateRule(in) + ")");
+			if(result.equals("(1)"))
+				result = "";
+			else if(result.equals("(0)"))
+				return "0";
 		}//else
-		
+		int addedLength = result.length();
 		//now we have (gx')
 		
-		
 		//next term- fx'
+		int displace = 0;
 		if(out.equals("sin")) {	//function is sin
 			
-			SinFunction sf = new SinFunction();
-			result += sf.returnDerivative();
-			
+			result += fh.sinDeriv();
+			displace = fh.sinDisplace();
 		
 		}//if
 		else if(out.equals("cos")) { //function is cos
 			
-			CosFunction sf = new CosFunction();
-			result += sf.returnDerivative();
+			result += fh.cosDeriv();
+			displace = fh.cosDisplace();
 			
 		}//else if
 		else if(out.equals("tan")) { //function is tan
 			
-			TanFunction sf = new TanFunction();
-			result += sf.returnDerivative();
+			result += fh.tanDeriv();
+			displace = fh.tanDisplace();
 			
 		}//else if
 		else if(out.equals("sxn")) { //function is sin^-1
 			
-			InvSinFunction sf = new InvSinFunction();
-			result += sf.returnDerivative();
+			result += fh.invSinDeriv();
+			displace = fh.invSinDisplace();
 			
 		}//else if
 		else if(out.equals("cxs")) { //function is cos^-1
 			
-			InvCosFunction sf = new InvCosFunction();
-			result += sf.returnDerivative();
+			result += fh.invCosDeriv();
+			displace = fh.invCosDisplace();
 			
 		}//else if
 		else if(out.equals("txn")) { //function is tan^-1
 			
-			InvTanFunction sf = new InvTanFunction();
-			result += sf.returnDerivative();
+			result += fh.invTanDeriv();
+			displace = fh.invTanDisplace();
 			
 		}//else if
+		else if(out.contains("ln")) { //function is ln
+			result += fh.lnDeriv();
+			displace = fh.lnDisplace();
+		}//else if
+		else if(out.contains("sqrt")) { //function is sqrt
+			result += fh.sqrtDeriv();
+			displace = fh.sqrtDisplace();
+		}
+		else if(out.contains("^")) {
+			if(out.contains("e^")) {
+				// make e function
+				result += fh.eDeriv();
+				displace = fh.eDisplace();
+			}
+			else {
+				if(out.matches("[0-9]+(\\^)") || out.matches("[0-9]*[e]?(pi\\^)")) {
+					String base = out.substring(0, out.length() - 1);
+					// make base function
+					result += fh.expDeriv(base);
+					displace = fh.expDisplace(base);
+				}
+				else
+					throw new NumberFormatException();
+			}
+		}
 		else {
 			
 			PowerRule pf = new PowerRule();
 			result += pf.calculateRule(in);
 			
 		}//else
-		
 		//now we have gx'fx'(missing gx)
-		
 		//add in gx into the last spot in parenthesis
-		result += ("(" + in + ")");
-		
+		if(displace == 0)
+			result += ("(" + in + ")");
+		else
+			result = result.substring(0, displace + addedLength) + in + result.substring(displace + addedLength);
 		return result;	//return gx' fx'(gx)
 	}//calculateRule	
 

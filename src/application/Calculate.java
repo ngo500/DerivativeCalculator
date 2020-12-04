@@ -118,8 +118,18 @@ public class Calculate {
 		outputString = outputString.replace("- +", "-");
 		outputString = outputString.replace("+ +", "+");
 		outputString = outputString.replace("- -", "+");
+		outputString = outputString.replace("+-", "-");
+		outputString = outputString.replace("-+", "-");
+		outputString = outputString.replace("++", "+");
+		outputString = outputString.replace("--", "+");
 		outputString = outputString.replace("* +", "*");
 		outputString = outputString.replace("/ +", "/");
+		outputString = outputString.replace("*+", "*");
+		outputString = outputString.replace("/+", "/");
+		outputString = outputString.replace("+ 0", "");
+		outputString = outputString.replace("- 0", "");
+		outputString = outputString.replace("+0", "");
+		outputString = outputString.replace("-0", "");
 		outputString = outputString.trim();
 		return outputString;
 	}

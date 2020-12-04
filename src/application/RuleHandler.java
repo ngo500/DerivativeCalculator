@@ -43,11 +43,17 @@ public class RuleHandler {
 				result = pr.calculateRule(termSplit[0],termSplit[3]);
 			
 			}//else if
-			else if(term.contains("sqrt")) {
-			
+			else if(term.contains("sqrt") || term.contains("cos") || term.contains("sin") 
+					|| term.contains("tan") || term.contains("ln") || term.contains("e^") || term.contains("sin^-1") 
+					|| term.contains("cos^-1") || term.contains("tan^-1")
+					|| term.matches(".*[0-9]+\\^.*")) {
+				int startParenthesesIndex = term.indexOf('(');
+				String out = term.substring(0, startParenthesesIndex);
+				int endParenthesesIndex = term.indexOf(')');
+				String in = term.substring(startParenthesesIndex + 1, endParenthesesIndex);
 				//call chain rule
 				ChainRule cr = new ChainRule();
-				result = cr.calculateRule(term);
+				result = cr.calculateRule(out, in);
 			
 			}//else if
 			else {

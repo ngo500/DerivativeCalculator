@@ -57,14 +57,24 @@ public class PowerRule implements DerivativeRule{
 				if(!numBeforeX) {
 					String[] temp = st.split("x|\\^");
 					int tempInt = Integer.parseInt(temp[2]);
-					result = (tempInt + "x^" + (tempInt-1));
+					if(tempInt == 2)
+						result = tempInt + "x";
+					else if(tempInt == 1)
+						result = "1";
+					else
+						result = (tempInt + "x^" + (tempInt-1));
 				}//if
 				else {//else, there is a number before the x
 					String[] temp = st.split("x|\\^");
 					
 					int firstNum = Integer.parseInt(temp[0]);
 					int tempInt = Integer.parseInt(temp[2]);
-					result = ((firstNum*tempInt) + "x^" + (tempInt-1));
+					if(tempInt == 2)
+						result = ((firstNum*tempInt) + "x");
+					else if(tempInt == 1)
+						result = String.valueOf(firstNum*tempInt);
+					else
+						result = ((firstNum*tempInt) + "x^" + (tempInt-1));
 				}//else
 				
 			}//else

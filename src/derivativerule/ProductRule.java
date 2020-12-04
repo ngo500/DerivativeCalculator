@@ -8,12 +8,7 @@ package derivativerule;
  *
  */
 
-import derivativefunction.SinFunction;
-import derivativefunction.CosFunction;
-import derivativefunction.TanFunction;
-import derivativefunction.InvSinFunction;
-import derivativefunction.InvCosFunction;
-import derivativefunction.InvTanFunction;
+import application.FunctionHandler;
 
 public class ProductRule implements DerivativeRule{
 
@@ -28,89 +23,95 @@ public class ProductRule implements DerivativeRule{
 		String fxdx = "NONE";	//derivative of fx
 		String gxdx = "NONE";	//derivative of gx
 		
+		FunctionHandler fh = new FunctionHandler();
+		
 		fx = fx.replaceAll("\\s", "");	//get rid of any spaces just in case
 		gx = gx.replaceAll("\\s", "");	//get rid of any spaces just in case
 		String delimiter = "((?<=cos)|(?=cos))|((?<=sin)|(?=sin))|((?<=tan)|(?=tan))|((?<=cxs)|(?=cxs))|((?<=sxn)|(?=sxn))|((?<=txn)|(?=txn))";
 		String[] arrFX = fx.split(delimiter);	//split for easy parsing
 		String[] arrGX = gx.split(delimiter);	//split for easy parsing
-		
+		int displace = 0;
 		//check what function the fx is
 		if(arrFX[0].equals("sin")) {
 			
-			SinFunction sf = new SinFunction();
-			fxdx = (sf.returnDerivative() + arrFX[1]);
+			fxdx = fh.sinDeriv();
+			displace = fh.sinDisplace();
 			
 		}//if
 		else if(arrFX[0].equals("cos")) {
 			
-			CosFunction sf = new CosFunction();
-			fxdx = (sf.returnDerivative() + arrFX[1]);
+			fxdx = fh.cosDeriv();
+			displace = fh.cosDisplace();
 			
 		}//else if
 		else if(arrFX[0].equals("tan")) {
 			
-			TanFunction sf = new TanFunction();
-			fxdx = (sf.returnDerivative() + arrFX[1]);
+			fxdx = fh.tanDeriv();
+			displace = fh.tanDisplace();
 			
 		}//else if
 		else if(arrFX[0].equals("sxn")) {
 			
-			InvSinFunction sf = new InvSinFunction();
-			fxdx = (sf.returnDerivative() + arrFX[1]);
+			fxdx = fh.invSinDeriv();
+			displace = fh.invSinDisplace();
 			
 		}//else if
 		else if(arrFX[0].equals("cxs")) {
 			
-			InvCosFunction sf = new InvCosFunction();
-			fxdx = (sf.returnDerivative() + arrFX[1]);
+			fxdx = fh.invCosDeriv();
+			displace = fh.invCosDisplace();
 			
 		}//else if
 		else if(arrFX[0].equals("txn")) {
 			
-			InvTanFunction sf = new InvTanFunction();
-			fxdx = (sf.returnDerivative() + arrFX[1]);
+			fxdx = fh.invTanDeriv();
+			displace = fh.invTanDisplace();
 			
 		}//else if
 		else{}//else
 		
+		fxdx = fxdx.substring(0, displace + 1) + arrFX[1] + fxdx.substring(displace + 1);
+		
 		//check what function the gx is
 		if(arrGX[0].equals("sin")) {
 			
-			SinFunction sf = new SinFunction();
-			gxdx = (sf.returnDerivative() + arrGX[1]);
+			gxdx = fh.sinDeriv();
+			displace = fh.sinDisplace();
 			
 		}//if
 		else if(arrGX[0].equals("cos")) {
 			
-			CosFunction sf = new CosFunction();
-			gxdx = (sf.returnDerivative() + arrGX[1]);
+			gxdx = fh.cosDeriv();
+			displace = fh.cosDisplace();
 			
 		}//else if
 		else if(arrGX[0].equals("tan")) {
 			
-			TanFunction sf = new TanFunction();
-			gxdx = (sf.returnDerivative() + arrGX[1]);
+			gxdx = fh.tanDeriv();
+			displace = fh.tanDisplace();
 			
 		}//else if
 		else if(arrGX[0].equals("sxn")) {
 			
-			InvSinFunction sf = new InvSinFunction();
-			gxdx = (sf.returnDerivative() + arrGX[1]);
+			gxdx = fh.invSinDeriv();
+			displace = fh.invSinDisplace();
 			
 		}//else if
 		else if(arrGX[0].equals("cxs")) {
 			
-			InvCosFunction sf = new InvCosFunction();
-			gxdx = (sf.returnDerivative() + arrGX[1]);
+			gxdx = fh.invCosDeriv();
+			displace = fh.invCosDisplace();
 			
 		}//else if
 		else if(arrGX[0].equals("txn")) {
 			
-			InvTanFunction sf = new InvTanFunction();
-			gxdx = (sf.returnDerivative() + arrGX[1]);
+			gxdx = fh.invTanDeriv();
+			displace = fh.invTanDisplace();
 			
 		}//else if
 		else {}//else
+		
+		gxdx = gxdx.substring(0, displace + 1) + arrGX[1] + gxdx.substring(displace + 1);
 		
 		//calculate the inside fx () is there is something
 		if(!(arrFX[1].equals("(x)"))) {
