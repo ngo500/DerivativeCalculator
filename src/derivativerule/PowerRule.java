@@ -16,7 +16,7 @@ public class PowerRule implements DerivativeRule{
 	 * input String st value in String form
 	 */
 	@Override
-	public String calculateRule(String st) throws NumberFormatException{
+	public String calculateRule(String st) throws NumberFormatException, StringIndexOutOfBoundsException {
 		
 		//result to return as the answer
 		String result = "";	

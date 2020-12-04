@@ -23,7 +23,7 @@ public class ChainRule implements DerivativeRule {
 	 * @param String out is for the outside function, String in is for the inside function
 	 * @return String is the derivative resulting from the chain function
 	 */
-	public String calculateRule(String out, String in) throws NumberFormatException{
+	public String calculateRule(String out, String in) throws NumberFormatException, StringIndexOutOfBoundsException {
 		
 		FunctionHandler fh = new FunctionHandler();
 
@@ -37,7 +37,6 @@ public class ChainRule implements DerivativeRule {
 		temp = temp.replaceAll("\\s", "");	//get rid of any spaces just in case
 		String delimiter = "((?<=\\+)|(?=\\+))|((?<=\\-)|(?=\\-))|((?<=\\*)|(?=\\*))|((?<=\\/)|(?=\\/))|((?<=cos)|(?=cos))|((?<=sin)|(?=sin))|((?<=tan)|(?=tan))|((?<=\\()|(?=\\())|((?<=\\))|(?=\\)))";
 		String[] arr = temp.split(delimiter);	//now the string is split between stuff for ease of use
-		
 		//if there is an array, go through it
 		if(arr.length > 1) {
 			result = "(";
@@ -66,8 +65,7 @@ public class ChainRule implements DerivativeRule {
 		
 		//next term- fx'
 		int displace = 0;
-		if(out.equals("sin")) {	//function is sin
-			
+		if(out.contains("sin")) {	//function is sin
 			result += fh.sinDeriv();
 			displace = fh.sinDisplace();
 		

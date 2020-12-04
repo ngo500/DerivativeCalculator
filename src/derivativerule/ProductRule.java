@@ -17,7 +17,7 @@ public class ProductRule implements DerivativeRule{
 	 * @param String fx- the first function, String gx- the second function
 	 * @return the result String of their derivative
 	 */
-	public String calculateRule(String fx, String gx) throws NumberFormatException {
+	public String calculateRule(String fx, String gx) throws NumberFormatException, StringIndexOutOfBoundsException {
 		
 		String result = "";	//final result
 		String fxdx = "NONE";	//derivative of fx

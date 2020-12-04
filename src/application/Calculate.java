@@ -62,6 +62,8 @@ public class Calculate {
 			else if(input.charAt(i) == ')') {
                 if(parenthesesStack.empty())
                 	throw new Exception("Bad input: Doesn't have a beginning parentheses");
+                if(input.charAt(i - 1) == '(')
+                	throw new Exception("Bad input: Nothing inside parentheses");
                 if(parenthesesStack.peek() == '(')
                 	parenthesesStack.pop();
                 else
