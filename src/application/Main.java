@@ -26,12 +26,12 @@ public class Main extends Application {
 	Button eBtn = buttonHandler.createButton("e", 60, 25);
 	Button lnBtn = buttonHandler.createButton("ln", 60, 25);
 	Button subtractBtn = buttonHandler.createButton("-", 60, 25);
-	Button sqrtBtn = buttonHandler.createButton("\u221A", 60, 25);		// \u221A is the Unicode escape for the square root symbol in UTF-16 encoding
+	Button sqrtBtn = buttonHandler.createButton("sqrt", 60, 25);		
 	Button inverseSinBtn = buttonHandler.createButton("sin^-1", 60, 25);
 	Button inverseCosBtn = buttonHandler.createButton("cos^-1", 60, 25);
 	Button inverseTanBtn = buttonHandler.createButton("tan^-1", 60, 25);
 	Button multiplyBtn = buttonHandler.createButton("*", 60, 25);
-	Button piBtn = buttonHandler.createButton("\u03C0", 60, 25);		// \u03C0 is the Unicode escape for the pi symbol in UTF-16 encoding
+	Button piBtn = buttonHandler.createButton("pi", 60, 25);		
 	Button calculateBtn = buttonHandler.createButton("Calculate", 110, 50);
 	
 	// Creates the input function text field
@@ -83,12 +83,12 @@ public class Main extends Application {
 		eBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "e"));
 		lnBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "ln()"));
 		subtractBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "-"));
-		sqrtBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "\u221A()"));
+		sqrtBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "sqrt()"));
 		inverseSinBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "sin^-1()"));
 		inverseCosBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "cos^-1()"));
 		inverseTanBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "tan^-1()"));
 		multiplyBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "*"));
-		piBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "\u03C0"));
+		piBtn.setOnAction(t -> inputFunction.setText(inputFunction.getText() + "pi"));
 	}
 	
 	
