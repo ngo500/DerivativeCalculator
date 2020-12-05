@@ -132,6 +132,18 @@ public class ProductRule implements DerivativeRule{
 		}//if
 		else {}//else
 		
+		//check for negative results
+		if(fxdx.contains("-")) {
+			System.out.println(fxdx);
+			fxdx = "(" + fxdx + ")";
+		}//if
+		else {}//else
+		if(gxdx.contains("-")) {
+			System.out.println(gxdx);
+			gxdx = "(" + gxdx + ")";
+		}//if
+		else {}//else
+		
 		//final result
 		result = ((fxdx + gx) + " + " + (fx + gxdx));
 		
