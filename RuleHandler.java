@@ -21,24 +21,14 @@ public class RuleHandler {
 		else if(term.contains("/")) {
 			
 			//call quotient rule
-			DivisionRule dr = new DivisionRule();
-			result = dr.calculateRule(term);
+			//first split input term
+			String delimiter = "((?<=\\/)|(?=\\/))";	//split at the /
+			String[] termSplit = term.split(delimiter);	//now, easy parsing
 			
-		}//else if
-		else if(term.contains("sin")&&term.contains("cos") || term.contains("sin")&&term.contains("tan")
-					|| term.contains("cos")&& term.contains("tan")){
-				
-			//first multi check
-			//first split functions
-			String delimiter = "((?<=\\))|(?=\\)))";	//split at the ) (where the next function starts
-			String[] termSplit = term.split(delimiter);	//now, parsing
-			termSplit[0] += termSplit[1];	//add the ) back
-			termSplit[2] += termSplit[3];	//add the ) back
-					
-			//now, call product rule
-			ProductRule pr = new ProductRule();
-			result = pr.calculateRule(termSplit[0],termSplit[2]);
-				
+			//now, call quotient rule
+			DivisionRule dr = new DivisionRule();
+			result = dr.calculateRule(termSplit[0],termSplit[2]);
+			
 		}//else if
 		else if(term.contains("*")) {
 			
@@ -50,6 +40,21 @@ public class RuleHandler {
 			ProductRule pr = new ProductRule();
 			result = pr.calculateRule(termSplit[0],termSplit[3]);
 			
+		}//else if
+		else if(term.contains("sin")&&term.contains("cos") || term.contains("sin")&&term.contains("tan")
+					|| term.contains("cos")&& term.contains("tan")){
+				
+			//second multi check
+			//first split functions
+			String delimiter = "((?<=\\))|(?=\\)))";	//split at the ) (where the next function starts
+			String[] termSplit = term.split(delimiter);	//now, parsing
+			termSplit[0] += termSplit[1];	//add the ) back
+			termSplit[2] += termSplit[3];	//add the ) back
+					
+			//now, call product rule
+			ProductRule pr = new ProductRule();
+			result = pr.calculateRule(termSplit[0],termSplit[2]);
+				
 		}//else if
 		else if(term.contains("sqrt")) {
 			
