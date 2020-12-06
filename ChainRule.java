@@ -38,6 +38,12 @@ public class ChainRule implements DerivativeRule {
 		String delimiter = "((?<=\\+)|(?=\\+))|((?<=\\-)|(?=\\-))|((?<=\\*)|(?=\\*))|((?<=\\/)|(?=\\/))|((?<=cos)|(?=cos))|((?<=sin)|(?=sin))|((?<=tan)|(?=tan))|((?<=\\()|(?=\\())|((?<=\\))|(?=\\)))";
 		String[] arr = temp.split(delimiter);	//now the string is split between stuff for ease of use
 		
+		//check for trig func division- not supported
+		if(temp.contains("/") && (temp.contains("sin"))||(temp.contains("cos"))||(temp.contains("tan"))){
+			throw new NumberFormatException();
+		}//if
+		else {}//else
+		
 		//if there is an array, go through it
 		if(arr.length > 1) {
 			result = "(";
