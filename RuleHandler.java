@@ -80,7 +80,7 @@ public class RuleHandler {
 				}//if
 				else {}//else
 				//check for excess not handled-
-				if((term.length()+2) != (in.length()+out.length())) {
+				if((term.length()) != (in.length()+out.length())+2) {
 					
 					throw new NumberFormatException();
 					
