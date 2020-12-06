@@ -7,69 +7,102 @@ public class RuleHandler {
 	 * @param term - the String given from the parsed input
 	 * @return result - the result of the derived term
 	 */
-	public String derive(String term) {
+	public String derive(String term) throws NumberFormatException {
+		
+		if(term.equals("+") || term.equals("-"))
+			return term;
 		
 		//result of derivative to return
 		String result = "";
-		
-		if(term.equals("")) {
+		try {
+			if(term.equals("")) {
 			
-			//empty input
-			result = "";
+				//empty input
+				result = "";
 			
-		}//if
-		else if(term.contains("/")) {
-			
-			//call quotient rule
-			//first split input term
-			String delimiter = "((?<=\\/)|(?=\\/))";	//split at the /
-			String[] termSplit = term.split(delimiter);	//now, easy parsing
-			
-			//now, call quotient rule
-			DivisionRule dr = new DivisionRule();
-			result = dr.calculateRule(termSplit[0],termSplit[2]);
-			
-		}//else if
-		else if(term.contains("*")) {
-			
-			//first split input term
-			String delimiter = "((?<=\\*)|(?=\\*))";	//split at the *
-			String[] termSplit = term.split(delimiter);	//now, easy parsing
-			
-			//now, call product rule
-			ProductRule pr = new ProductRule();
-			result = pr.calculateRule(termSplit[0],termSplit[3]);
-			
-		}//else if
-		else if(term.contains("sin")&&term.contains("cos") || term.contains("sin")&&term.contains("tan")
-					|| term.contains("cos")&& term.contains("tan")){
+			}//if
+			else if(term.contains("/")) {
 				
-			//second multi check
-			//first split functions
-			String delimiter = "((?<=\\))|(?=\\)))";	//split at the ) (where the next function starts
-			String[] termSplit = term.split(delimiter);	//now, parsing
-			termSplit[0] += termSplit[1];	//add the ) back
-			termSplit[2] += termSplit[3];	//add the ) back
+				//call quotient rule
+				//first split input term
+				String delimiter = "((?<=\\/)|(?=\\/))";	//split at the /
+				String[] termSplit = term.split(delimiter);	//now, easy parsing
+			
+				//now, call quotient rule
+				DivisionRule dr = new DivisionRule();
+				result = dr.calculateRule(termSplit[0],termSplit[2]);
+			
+			}//else if
+			else if(term.contains("*")) {
+				
+				//second multi check
+				//first split input term
+				String delimiter = "((?<=\\*)|(?=\\*))";	//split at the *
+				String[] termSplit = term.split(delimiter);	//now, easy parsing
+			
+				//now, call product rule
+				ProductRule pr = new ProductRule();
+				result = pr.calculateRule(termSplit[0],termSplit[2]);
+			
+			}//else if
+			else if(term.contains("sin")&&term.contains("cos") || term.contains("sin")&&term.contains("tan")
+					|| term.contains("cos")&& term.contains("tan") ){
+				
+				//first multi check
+				//first split functions
+				String delimiter = "((?<=\\))|(?=\\)))";	//split at the ) (where the next function starts
+				String[] termSplit = term.split(delimiter);	//now, parsing
+				termSplit[0] += termSplit[1];	//add the ) back
+				termSplit[2] += termSplit[3];	//add the ) back
 					
-			//now, call product rule
-			ProductRule pr = new ProductRule();
-			result = pr.calculateRule(termSplit[0],termSplit[2]);
+				//now, call product rule
+				ProductRule pr = new ProductRule();
+				result = pr.calculateRule(termSplit[0],termSplit[2]);
 				
-		}//else if
-		else if(term.contains("sqrt")) {
+			}//else if
+			else if(term.contains("sqrt") || term.contains("cos") || term.contains("sin") 
+					|| term.contains("tan") || term.contains("ln") || term.contains("e^") || term.contains("sin^") 
+					|| term.contains("cos^") || term.contains("tan^")
+					|| term.matches(".*[0-9]+\\^.*")) {
+				
+				int startParenthesesIndex = term.indexOf('(');
+				String out = term.substring(0, startParenthesesIndex);
+				int endParenthesesIndex = term.indexOf(')');
+				String in = term.substring(startParenthesesIndex + 1, endParenthesesIndex);
+				
+				//check for inner function- not handled
+				if(in.contains("sqrt") || in.contains("cos") || in.contains("sin") 
+						|| in.contains("tan") || in.contains("ln") || in.contains("e^") || in.contains("sin^") 
+						|| in.contains("cos^") || in.contains("tan^")) {
+					
+					throw new NumberFormatException();
+					
+				}//if
+				else {}//else
+				//check for excess not handled-
+				if((term.length()+2) != (in.length()+out.length())) {
+					
+					throw new NumberFormatException();
+					
+				}//if
+				else {}//else
+				
+				//call chain rule
+				ChainRule cr = new ChainRule();
+				result = cr.calculateRule(out, in);
 			
-			//call chain rule
-			ChainRule cr = new ChainRule();
-			result = cr.calculateRule(term);
+			}//else if
+			else {
+				//call power rule
+				PowerRule pr = new PowerRule();
+				result = pr.calculateRule(term);
 			
-		}//else if
-		else {
+			}//else
 			
-			//call power rule
-			PowerRule pr = new PowerRule();
-			result = pr.calculateRule(term);
-			
-		}//else
+		}
+		catch(NumberFormatException e) {
+			throw e;
+		}
 		
 		//result derived to return
 		return result;
