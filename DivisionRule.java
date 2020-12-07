@@ -1,4 +1,5 @@
 package derivativerule;
+
 /**
  * 
  * DivisionRule: Class that Implements the Quotient Rule
@@ -23,9 +24,13 @@ public class DivisionRule implements DerivativeRule{
 		
 		String result = "";//store resulting derivative
 		
-		
-	
 			ProductRule product = new ProductRule();
+			
+			//check for just a number
+			if(fx.matches("[0-9]+") && gx.matches("[0-9]+")) {
+				return "0";
+			}//if
+			else {}//else
 			
 			//check if the second function has any exp, and add ^-1 to bring it out of division
 			if(gx.contains("^")) {
@@ -39,6 +44,7 @@ public class DivisionRule implements DerivativeRule{
 				gx += "^-1";
 				
 			}//else
+			
 			
 			if(fx.equals("1") && gx.contains("x")) {
 				
